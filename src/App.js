@@ -178,7 +178,7 @@ export default function App() {
             })}
           </div>
         </div>
-        <a href="#" style={styles.btnOrange}>
+        <a href="/#"style={styles.btnOrange}>
           🔑 부족한 부분 채우러 가기<br />
           <span style={{ fontSize: "12px", opacity: 0.9 }}>(비밀 채팅방 입장)</span>
         </a>
