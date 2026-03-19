@@ -1,52 +1,56 @@
 import { useState } from "react";
 
 const questions = [
-  { id: 1, text: "내가 집을 사려면 대출을 얼마나 받을 수 있는지 대략이라도 알고 있다." },
-  { id: 2, text: "요즘 관심 있는 동네 아파트가 얼마 정도 하는지 알고 있다." },
-  { id: 3, text: "집 살 때 집값 말고도 세금이나 복비 같은 추가 비용이 든다는 걸 알고 있다." },
-  { id: 4, text: "전세, 월세, 매매의 차이를 다른 사람에게 설명할 수 있다." },
-  { id: 5, text: "정부에서 집 사는 걸 도와주는 대출이나 혜택이 있다는 걸 알고 있다." },
+  { id: 1, text: "나의 종잣돈과 대출을 합친 내집마련 예산을 정확히 아나요?" },
+  { id: 2, text: "대출에서 LTV, DSR, DTI의 차이를 정확히 알고 있나요?" },
+  { id: 3, text: "내 상황에서 대출 원리금이 얼마여야 영끌이 아닌지 알고 있나요?" },
+  { id: 4, text: "내집마련 후보로 단순히 주변 단지가 아닌 다른 후보 단지가 있나요?" },
+  { id: 5, text: "지금 보고 있는 아파트가 가장 좋다는 매수 확신이 있나요?" },
+  { id: 6, text: "부동산 사장님과 만나서 편안하게 대화가 가능한가요?" },
+  { id: 7, text: "부동산 계약하기 위해 꼭 체크해야하는 내용을 알고 있나요?" },
 ];
 
 const options = [
-  { label: "전혀 몰라요", value: 0, emoji: "😅" },
-  { label: "들어본 것 같아요", value: 1, emoji: "🤔" },
-  { label: "어느 정도 알아요", value: 2, emoji: "😊" },
-  { label: "잘 알고 있어요", value: 3, emoji: "🔥" },
+  { label: "O — 알고 있어요!", value: 1, emoji: "⭕" },
+  { label: "X — 모르겠어요", value: 0, emoji: "❌" },
 ];
 
 const levels = [
   {
-    min: 0, max: 4,
+    min: 0, max: 1,
     level: "Lv 1",
     title: "내집마련 무지렁이",
     emoji: "🪱",
     desc: "지금 사면 큰일나는 지렁이 단계! 부동산은 아는 만큼 보여요. 일단 기초부터 차근차근 시작해봐요 😊",
     accent: "#FF6B9D",
+    readyMsg: "아직 준비가 많이 필요해요",
   },
   {
-    min: 5, max: 9,
+    min: 2, max: 3,
     level: "Lv 2",
     title: "평생 내집마련, 담 넘어가듯 스윽하려고?",
     emoji: "🐍",
     desc: "대충 알아서 더 위험한 구렁이! 어설프게 아는 게 제일 무서워요. 제대로 알고 제대로 삽시다 💪",
     accent: "#FFB347",
+    readyMsg: "기초는 있지만 아직 위험해요",
   },
   {
-    min: 10, max: 13,
+    min: 4, max: 5,
     level: "Lv 3",
     title: "조금만 더 알아보면 내집마련 가능!",
     emoji: "🐉",
     desc: "실행력을 더하면 좋을 똘똘한 뱀! 지식은 충분히 쌓였어요. 이제 행동으로 옮길 때예요 🔥",
     accent: "#4ECDC4",
+    readyMsg: "거의 다 왔어요! 조금만 더!",
   },
   {
-    min: 14, max: 15,
+    min: 6, max: 7,
     level: "Lv 4",
     title: "지금 바로 내집마련 해도 되겠는데?",
     emoji: "🐲",
     desc: "승천 직전 용! 준비는 다 됐어요. 이제 딱 맞는 집만 찾으면 끝. 같이 찾아봐요 🏠",
     accent: "#5B6AF0",
+    readyMsg: "내집마련 준비 완료!",
   },
 ];
 
@@ -59,7 +63,7 @@ const styles = {
   btnOrange: { width: "100%", padding: "16px", borderRadius: "16px", border: "none", color: "white", fontWeight: "900", fontSize: "16px", cursor: "pointer", background: "linear-gradient(135deg, #FF6B6B, #FF8E53)", marginBottom: "12px", textDecoration: "none", display: "block", textAlign: "center", lineHeight: "1.5" },
   tag: { display: "inline-block", padding: "4px 12px", borderRadius: "20px", fontSize: "12px", fontWeight: "700", background: "#FFE0B2", color: "#E65100", marginBottom: "12px" },
   progressBg: { height: "8px", borderRadius: "8px", background: "#F0F0F0", overflow: "hidden", marginBottom: "24px" },
-  optionBase: { width: "100%", padding: "14px 16px", borderRadius: "16px", border: "1.5px solid #F0F0F0", background: "white", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", marginBottom: "10px", textAlign: "left" },
+  optionBase: { width: "100%", padding: "18px 20px", borderRadius: "16px", border: "1.5px solid #F0F0F0", background: "white", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", marginBottom: "12px", textAlign: "left" },
   optionSelected: { border: "2px solid #5B6AF0", background: "linear-gradient(135deg, #EEF0FF, #F3E8FF)", boxShadow: "0 4px 14px rgba(91,106,240,0.15)" },
 };
 
@@ -74,7 +78,8 @@ export default function App() {
   const [selected, setSelected] = useState(null);
 
   const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
-  const successRate = Math.round((totalScore / 15) * 100);
+  const successRate = Math.round((totalScore / 7) * 100);
+  const notReadyRate = 100 - successRate;
   const resultLevel = getLevel(totalScore);
 
   const handleNext = () => {
@@ -103,12 +108,12 @@ export default function App() {
             지금 집 사도 될까?<br /><span style={{ color: "#5B6AF0" }}>내집마련 레벨테스트</span>
           </h1>
           <p style={{ fontSize: "14px", color: "#888", lineHeight: "1.7", margin: "0 0 28px" }}>
-            5개 질문으로 알아보는 나의 부동산 레벨 🏠<br />결과가 생각보다 충격적일 수도 있어요 👀
+            7개 질문으로 알아보는 나의 부동산 레벨 🏠<br />결과가 생각보다 충격적일 수도 있어요 👀
           </p>
           <div style={{ background: "#F8F9FF", borderRadius: "16px", padding: "16px", marginBottom: "24px", textAlign: "left" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
               <span style={{ fontSize: "20px" }}>📊</span>
-              <span style={{ fontSize: "14px", fontWeight: "600", color: "#444" }}>총 5문항 · 각 0~3점 · 15점 만점</span>
+              <span style={{ fontSize: "14px", fontWeight: "600", color: "#444" }}>총 7문항 · O/X · 7점 만점</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <span style={{ fontSize: "20px" }}>⏱️</span>
@@ -144,8 +149,8 @@ export default function App() {
             {options.map((opt) => (
               <button key={opt.value} onClick={() => setSelected(opt.value)}
                 style={{ ...styles.optionBase, ...(selected === opt.value ? styles.optionSelected : {}) }}>
-                <span style={{ fontSize: "22px" }}>{opt.emoji}</span>
-                <span style={{ fontSize: "14px", fontWeight: "600", color: "#333" }}>{opt.label}</span>
+                <span style={{ fontSize: "28px" }}>{opt.emoji}</span>
+                <span style={{ fontSize: "16px", fontWeight: "700", color: "#333" }}>{opt.label}</span>
                 {selected === opt.value && <span style={{ marginLeft: "auto", fontSize: "18px" }}>✅</span>}
               </button>
             ))}
@@ -161,48 +166,60 @@ export default function App() {
   return (
     <div style={styles.app}>
       <div style={styles.container}>
-        <div style={{ background: `linear-gradient(135deg, ${resultLevel.accent}22, ${resultLevel.accent}11)`, borderRadius: "24px", padding: "28px", marginBottom: "16px", border: `2px solid ${resultLevel.accent}33`, boxShadow: "0 8px 32px rgba(0,0,0,0.1)" }}>
+
+        {/* 레벨 카드 */}
+        <div style={{ background: `linear-gradient(135deg, ${resultLevel.accent}22, ${resultLevel.accent}11)`, borderRadius: "24px", padding: "28px", marginBottom: "16px", border: `2px solid ${resultLevel.accent}44`, boxShadow: "0 8px 32px rgba(0,0,0,0.1)" }}>
           <div style={{ textAlign: "center", marginBottom: "20px" }}>
             <div style={{ fontSize: "72px", marginBottom: "12px" }}>{resultLevel.emoji}</div>
             <span style={{ display: "inline-block", padding: "4px 14px", borderRadius: "20px", fontSize: "12px", fontWeight: "800", background: resultLevel.accent, color: "white", marginBottom: "10px" }}>{resultLevel.level}</span>
             <h2 style={{ fontSize: "20px", fontWeight: "900", color: "#1a1a2e", margin: "0 0 8px", lineHeight: "1.4" }}>{resultLevel.title}</h2>
           </div>
-          <div style={{ background: "rgba(255,255,255,0.8)", borderRadius: "16px", padding: "16px", textAlign: "center", marginBottom: "16px" }}>
-            <div style={{ fontSize: "48px", fontWeight: "900", color: resultLevel.accent }}>{totalScore}<span style={{ fontSize: "18px", color: "#aaa" }}>/15</span></div>
-            <div style={{ fontSize: "12px", color: "#888", fontWeight: "600" }}>내집마련 레벨 점수</div>
+
+          {/* 준비도 퍼센트 — 핵심 강조 */}
+          <div style={{ background: "white", borderRadius: "20px", padding: "20px", marginBottom: "16px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "12px" }}>
+              <div>
+                <div style={{ fontSize: "11px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>내집마련 준비도</div>
+                <div style={{ fontSize: "52px", fontWeight: "900", lineHeight: 1, color: resultLevel.accent }}>{successRate}<span style={{ fontSize: "22px" }}>%</span></div>
+              </div>
+              <div style={{ textAlign: "right" }}>
+                <div style={{ fontSize: "11px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>아직 부족한 부분</div>
+                <div style={{ fontSize: "52px", fontWeight: "900", lineHeight: 1, color: "#FFB347" }}>{notReadyRate}<span style={{ fontSize: "22px" }}>%</span></div>
+              </div>
+            </div>
+
+            {/* 준비됨/부족함 바 */}
+            <div style={{ height: "18px", borderRadius: "12px", background: "#FFE8C8", overflow: "hidden", marginBottom: "8px" }}>
+              <div style={{ height: "100%", borderRadius: "12px", background: `linear-gradient(90deg, ${resultLevel.accent}, #8B5CF6)`, width: `${successRate}%`, transition: "width 1.2s ease" }} />
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <span style={{ fontSize: "11px", fontWeight: "700", color: resultLevel.accent }}>✅ 준비됨</span>
+              <span style={{ fontSize: "11px", fontWeight: "700", color: "#FFB347" }}>⚠️ 준비 필요</span>
+            </div>
           </div>
-          <div style={{ marginBottom: "16px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-              <span style={{ fontSize: "13px", fontWeight: "700", color: "#555" }}>내집마련 준비도</span>
-              <span style={{ fontSize: "14px", fontWeight: "900", color: resultLevel.accent }}>{successRate}%</span>
-            </div>
-            <div style={{ height: "14px", borderRadius: "10px", background: "rgba(255,255,255,0.6)", overflow: "hidden" }}>
-              <div style={{ height: "100%", borderRadius: "10px", background: `linear-gradient(90deg, ${resultLevel.accent}, #8B5CF6)`, width: `${successRate}%`, transition: "width 1s ease" }} />
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
-              <span style={{ fontSize: "11px", color: "#bbb" }}>🪱 Lv1</span>
-              <span style={{ fontSize: "11px", color: "#bbb" }}>🐍 Lv2</span>
-              <span style={{ fontSize: "11px", color: "#bbb" }}>🐉 Lv3</span>
-              <span style={{ fontSize: "11px", color: "#bbb" }}>🐲 Lv4</span>
-            </div>
+
+          {/* 준비 메시지 강조 */}
+          <div style={{ background: notReadyRate >= 50 ? "#FFF3F3" : "#F0FFF8", borderRadius: "16px", padding: "14px 16px", marginBottom: "16px", border: `1.5px solid ${notReadyRate >= 50 ? "#FFD0D0" : "#C0F0DC"}` }}>
+            <p style={{ fontSize: "15px", fontWeight: "800", color: notReadyRate >= 50 ? "#E53E3E" : "#2D8A5E", margin: 0, textAlign: "center" }}>
+              {notReadyRate >= 50 ? `🚨 ${notReadyRate}%가 아직 준비되지 않았어요!` : `🎉 ${successRate}% 준비됐어요! 거의 다 왔어요!`}
+            </p>
           </div>
+
           <div style={{ background: "rgba(255,255,255,0.8)", borderRadius: "16px", padding: "16px" }}>
             <p style={{ fontSize: "14px", color: "#444", lineHeight: "1.7", textAlign: "center", margin: 0, fontWeight: "500" }}>{resultLevel.desc}</p>
           </div>
         </div>
 
+        {/* 문항별 O/X */}
         <div style={styles.card}>
-          <div style={{ fontSize: "11px", fontWeight: "800", color: "#aaa", letterSpacing: "1px", marginBottom: "12px" }}>문항별 점수</div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "8px" }}>
-            {questions.map((_, i) => {
+          <div style={{ fontSize: "11px", fontWeight: "800", color: "#aaa", letterSpacing: "1px", marginBottom: "14px" }}>문항별 결과</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            {questions.map((q, i) => {
               const score = answers[i] ?? 0;
-              const colors = ["#FFB5C8", "#FFD580", "#A8E6CF", "#B5D5FF"];
               return (
-                <div key={i} style={{ textAlign: "center" }}>
-                  <div style={{ height: "6px", borderRadius: "4px", background: "#F0F0F0", marginBottom: "4px", overflow: "hidden" }}>
-                    <div style={{ height: "100%", borderRadius: "4px", background: colors[score], width: `${(score / 3) * 100}%` }} />
-                  </div>
-                  <span style={{ fontSize: "11px", color: "#bbb" }}>Q{i + 1}</span>
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <span style={{ fontSize: "18px" }}>{score === 1 ? "⭕" : "❌"}</span>
+                  <span style={{ fontSize: "13px", color: score === 1 ? "#444" : "#bbb", fontWeight: score === 1 ? "600" : "400", flex: 1 }}>{q.text}</span>
                 </div>
               );
             })}
