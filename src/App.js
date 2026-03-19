@@ -19,33 +19,33 @@ const levels = [
   {
     min: 0, max: 4,
     level: "Lv 1",
-    title: "지렁이",
+    title: "내집마련 무지렁이",
     emoji: "🪱",
-    desc: "부동산은 아직 다른 세계 이야기! 괜찮아요, 모두 처음엔 지렁이였답니다. 지금 시작하면 돼요 😊",
+    desc: "지금 사면 큰일나는 지렁이 단계! 부동산은 아는 만큼 보여요. 일단 기초부터 차근차근 시작해봐요 😊",
     accent: "#FF6B9D",
   },
   {
     min: 5, max: 9,
     level: "Lv 2",
-    title: "구렁이",
+    title: "평생 내집마련, 담 넘어가듯 스윽하려고?",
     emoji: "🐍",
-    desc: "기본은 알고 있는 초보 탈출 직전! 조금만 더 공부하면 뱀이 될 수 있어요 💪",
+    desc: "대충 알아서 더 위험한 구렁이! 어설프게 아는 게 제일 무서워요. 제대로 알고 제대로 삽시다 💪",
     accent: "#FFB347",
   },
   {
     min: 10, max: 13,
     level: "Lv 3",
-    title: "뱀",
+    title: "조금만 더 알아보면 내집마련 가능!",
     emoji: "🐉",
-    desc: "제법 알고 있는 부동산 중수! 이제 실전 경험만 쌓으면 용이 될 날이 멀지 않았어요 🔥",
+    desc: "실행력을 더하면 좋을 똘똘한 뱀! 지식은 충분히 쌓였어요. 이제 행동으로 옮길 때예요 🔥",
     accent: "#4ECDC4",
   },
   {
     min: 14, max: 15,
     level: "Lv 4",
-    title: "용",
+    title: "지금 바로 내집마련 해도 되겠는데?",
     emoji: "🐲",
-    desc: "부동산 고수! 이미 충분한 지식을 갖춘 당신, 이제 실전에서 내 집 마련을 해봐요! 🏠",
+    desc: "승천 직전 용! 준비는 다 됐어요. 이제 딱 맞는 집만 찾으면 끝. 같이 찾아봐요 🏠",
     accent: "#5B6AF0",
   },
 ];
@@ -56,7 +56,7 @@ const styles = {
   container: { maxWidth: "390px", width: "100%" },
   btn: { width: "100%", padding: "16px", borderRadius: "16px", border: "none", color: "white", fontWeight: "900", fontSize: "16px", cursor: "pointer", background: "linear-gradient(135deg, #5B6AF0, #8B5CF6)", marginBottom: "12px" },
   btnGray: { width: "100%", padding: "14px", borderRadius: "16px", border: "1.5px solid #E0E0E0", background: "white", color: "#666", fontWeight: "700", fontSize: "14px", cursor: "pointer" },
-  btnOrange: { width: "100%", padding: "16px", borderRadius: "16px", border: "none", color: "white", fontWeight: "900", fontSize: "16px", cursor: "pointer", background: "linear-gradient(135deg, #FF6B6B, #FF8E53)", marginBottom: "12px", textDecoration: "none", display: "block", textAlign: "center" },
+  btnOrange: { width: "100%", padding: "16px", borderRadius: "16px", border: "none", color: "white", fontWeight: "900", fontSize: "16px", cursor: "pointer", background: "linear-gradient(135deg, #FF6B6B, #FF8E53)", marginBottom: "12px", textDecoration: "none", display: "block", textAlign: "center", lineHeight: "1.5" },
   tag: { display: "inline-block", padding: "4px 12px", borderRadius: "20px", fontSize: "12px", fontWeight: "700", background: "#FFE0B2", color: "#E65100", marginBottom: "12px" },
   progressBg: { height: "8px", borderRadius: "8px", background: "#F0F0F0", overflow: "hidden", marginBottom: "24px" },
   optionBase: { width: "100%", padding: "14px 16px", borderRadius: "16px", border: "1.5px solid #F0F0F0", background: "white", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", marginBottom: "10px", textAlign: "left" },
@@ -165,7 +165,7 @@ export default function App() {
           <div style={{ textAlign: "center", marginBottom: "20px" }}>
             <div style={{ fontSize: "72px", marginBottom: "12px" }}>{resultLevel.emoji}</div>
             <span style={{ display: "inline-block", padding: "4px 14px", borderRadius: "20px", fontSize: "12px", fontWeight: "800", background: resultLevel.accent, color: "white", marginBottom: "10px" }}>{resultLevel.level}</span>
-            <h2 style={{ fontSize: "28px", fontWeight: "900", color: "#1a1a2e", margin: "0 0 8px" }}>나는 {resultLevel.title}!</h2>
+            <h2 style={{ fontSize: "20px", fontWeight: "900", color: "#1a1a2e", margin: "0 0 8px", lineHeight: "1.4" }}>{resultLevel.title}</h2>
           </div>
           <div style={{ background: "rgba(255,255,255,0.8)", borderRadius: "16px", padding: "16px", textAlign: "center", marginBottom: "16px" }}>
             <div style={{ fontSize: "48px", fontWeight: "900", color: resultLevel.accent }}>{totalScore}<span style={{ fontSize: "18px", color: "#aaa" }}>/15</span></div>
@@ -210,8 +210,8 @@ export default function App() {
         </div>
 
         <a href="/#" style={styles.btnOrange}>
-          🔑 부족한 부분 채우러 가기<br />
-          <span style={{ fontSize: "12px", opacity: 0.9 }}>(비밀 채팅방 입장)</span>
+          📚 내집마련 커리큘럼 살펴보기<br />
+          <span style={{ fontSize: "12px", opacity: 0.9 }}>부족한 부분 지금 바로 채우러 가기 →</span>
         </a>
         <button onClick={handleRestart} style={styles.btnGray}>🔄 다시 테스트하기</button>
         <p style={{ textAlign: "center", fontSize: "12px", color: "#bbb", marginTop: "12px" }}>📸 결과 캡처해서 인스타 스토리에 공유하세요!</p>
