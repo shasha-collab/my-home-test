@@ -100,10 +100,10 @@ export default function App() {
           <div style={{ fontSize: "64px", marginBottom: "16px" }}>🏡</div>
           <span style={styles.tag}>3040 필수 자가진단</span>
           <h1 style={{ fontSize: "28px", fontWeight: "900", color: "#1a1a2e", lineHeight: "1.3", margin: "0 0 12px" }}>
-            내 집 마련<br /><span style={{ color: "#5B6AF0" }}>메타인지 테스트</span>
+            지금 집 사도 될까?<br /><span style={{ color: "#5B6AF0" }}>내집마련 레벨테스트</span>
           </h1>
           <p style={{ fontSize: "14px", color: "#888", lineHeight: "1.7", margin: "0 0 28px" }}>
-            나는 지렁이일까, 용일까? 🐲<br />5개 질문으로 알아보는 나의 부동산 레벨
+            5개 질문으로 알아보는 나의 부동산 레벨 🏠<br />결과가 생각보다 충격적일 수도 있어요 👀
           </p>
           <div style={{ background: "#F8F9FF", borderRadius: "16px", padding: "16px", marginBottom: "24px", textAlign: "left" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
@@ -169,21 +169,21 @@ export default function App() {
           </div>
           <div style={{ background: "rgba(255,255,255,0.8)", borderRadius: "16px", padding: "16px", textAlign: "center", marginBottom: "16px" }}>
             <div style={{ fontSize: "48px", fontWeight: "900", color: resultLevel.accent }}>{totalScore}<span style={{ fontSize: "18px", color: "#aaa" }}>/15</span></div>
-            <div style={{ fontSize: "12px", color: "#888", fontWeight: "600" }}>내 집 마련 메타인지 점수</div>
+            <div style={{ fontSize: "12px", color: "#888", fontWeight: "600" }}>내집마련 레벨 점수</div>
           </div>
           <div style={{ marginBottom: "16px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-              <span style={{ fontSize: "13px", fontWeight: "700", color: "#555" }}>내 집 마련 준비도</span>
+              <span style={{ fontSize: "13px", fontWeight: "700", color: "#555" }}>내집마련 준비도</span>
               <span style={{ fontSize: "14px", fontWeight: "900", color: resultLevel.accent }}>{successRate}%</span>
             </div>
             <div style={{ height: "14px", borderRadius: "10px", background: "rgba(255,255,255,0.6)", overflow: "hidden" }}>
               <div style={{ height: "100%", borderRadius: "10px", background: `linear-gradient(90deg, ${resultLevel.accent}, #8B5CF6)`, width: `${successRate}%`, transition: "width 1s ease" }} />
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
-              <span style={{ fontSize: "11px", color: "#bbb" }}>🪱 지렁이</span>
-              <span style={{ fontSize: "11px", color: "#bbb" }}>🐍 구렁이</span>
-              <span style={{ fontSize: "11px", color: "#bbb" }}>🐉 뱀</span>
-              <span style={{ fontSize: "11px", color: "#bbb" }}>🐲 용</span>
+              <span style={{ fontSize: "11px", color: "#bbb" }}>🪱 Lv1</span>
+              <span style={{ fontSize: "11px", color: "#bbb" }}>🐍 Lv2</span>
+              <span style={{ fontSize: "11px", color: "#bbb" }}>🐉 Lv3</span>
+              <span style={{ fontSize: "11px", color: "#bbb" }}>🐲 Lv4</span>
             </div>
           </div>
           <div style={{ background: "rgba(255,255,255,0.8)", borderRadius: "16px", padding: "16px" }}>
