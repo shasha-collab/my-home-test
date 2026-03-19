@@ -105,7 +105,7 @@ export default function App() {
           <div style={{ fontSize: "64px", marginBottom: "16px" }}>🏡</div>
           <span style={styles.tag}>3040 필수 자가진단</span>
           <h1 style={{ fontSize: "28px", fontWeight: "900", color: "#1a1a2e", lineHeight: "1.3", margin: "0 0 12px" }}>
-            지금 집 사도 될까?<br /><span style={{ color: "#5B6AF0" }}>내집마련 레벨테스트</span>
+            지금 집 사도 될까?<br /><span style={{ color: "#5B6AF0" }}>내집마련 준비력 테스트</span>
           </h1>
           <p style={{ fontSize: "14px", color: "#888", lineHeight: "1.7", margin: "0 0 28px" }}>
             7개 질문으로 알아보는 나의 부동산 레벨 🏠<br />결과가 생각보다 충격적일 수도 있어요 👀
@@ -176,33 +176,21 @@ export default function App() {
           </div>
 
           {/* 준비도 퍼센트 — 핵심 강조 */}
-          <div style={{ background: "white", borderRadius: "20px", padding: "20px", marginBottom: "16px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "12px" }}>
-              <div>
-                <div style={{ fontSize: "11px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>내집마련 준비도</div>
-                <div style={{ fontSize: "52px", fontWeight: "900", lineHeight: 1, color: resultLevel.accent }}>{successRate}<span style={{ fontSize: "22px" }}>%</span></div>
-              </div>
-              <div style={{ textAlign: "right" }}>
-                <div style={{ fontSize: "11px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>아직 부족한 부분</div>
-                <div style={{ fontSize: "52px", fontWeight: "900", lineHeight: 1, color: "#FFB347" }}>{notReadyRate}<span style={{ fontSize: "22px" }}>%</span></div>
-              </div>
+          <div style={{ background: "white", borderRadius: "20px", padding: "24px 20px", marginBottom: "16px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)", textAlign: "center" }}>
+            <div style={{ fontSize: "11px", fontWeight: "700", color: "#aaa", marginBottom: "8px", letterSpacing: "1px" }}>내집마련 준비도</div>
+            <div style={{ fontSize: "72px", fontWeight: "900", lineHeight: 1, color: "#E53E3E", marginBottom: "16px" }}>
+              {successRate}<span style={{ fontSize: "28px" }}>%</span>
             </div>
 
-            {/* 준비됨/부족함 바 */}
-            <div style={{ height: "18px", borderRadius: "12px", background: "#FFE8C8", overflow: "hidden", marginBottom: "8px" }}>
-              <div style={{ height: "100%", borderRadius: "12px", background: `linear-gradient(90deg, ${resultLevel.accent}, #8B5CF6)`, width: `${successRate}%`, transition: "width 1.2s ease" }} />
+            {/* 준비된 퍼센트만 빨갛게 */}
+            <div style={{ height: "20px", borderRadius: "12px", background: "#F0F0F0", overflow: "hidden", marginBottom: "10px" }}>
+              <div style={{ height: "100%", borderRadius: "12px", background: "linear-gradient(90deg, #E53E3E, #FF6B6B)", width: `${successRate}%`, transition: "width 1.2s ease" }} />
             </div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <span style={{ fontSize: "11px", fontWeight: "700", color: resultLevel.accent }}>✅ 준비됨</span>
-              <span style={{ fontSize: "11px", fontWeight: "700", color: "#FFB347" }}>⚠️ 준비 필요</span>
+              <span style={{ fontSize: "11px", fontWeight: "700", color: "#E53E3E" }}>0%</span>
+              <span style={{ fontSize: "12px", fontWeight: "800", color: "#E53E3E" }}>현재 {successRate}% 준비됨</span>
+              <span style={{ fontSize: "11px", fontWeight: "700", color: "#ccc" }}>100%</span>
             </div>
-          </div>
-
-          {/* 준비 메시지 강조 */}
-          <div style={{ background: notReadyRate >= 50 ? "#FFF3F3" : "#F0FFF8", borderRadius: "16px", padding: "14px 16px", marginBottom: "16px", border: `1.5px solid ${notReadyRate >= 50 ? "#FFD0D0" : "#C0F0DC"}` }}>
-            <p style={{ fontSize: "15px", fontWeight: "800", color: notReadyRate >= 50 ? "#E53E3E" : "#2D8A5E", margin: 0, textAlign: "center" }}>
-              {notReadyRate >= 50 ? `🚨 ${notReadyRate}%가 아직 준비되지 않았어요!` : `🎉 ${successRate}% 준비됐어요! 거의 다 왔어요!`}
-            </p>
           </div>
 
           <div style={{ background: "rgba(255,255,255,0.8)", borderRadius: "16px", padding: "16px" }}>
@@ -226,9 +214,11 @@ export default function App() {
           </div>
         </div>
 
-        <a href="/#" style={styles.btnOrange}>
-          📚 내집마련 커리큘럼 살펴보기<br />
-          <span style={{ fontSize: "12px", opacity: 0.9 }}>부족한 부분 지금 바로 채우러 가기 →</span>
+        <a href="https://weolbu.com/product/4966" target="_blank" rel="noopener noreferrer"
+          style={{ ...styles.btnOrange, background: "linear-gradient(135deg, #5B6AF0, #8B5CF6)", padding: "22px 20px", borderRadius: "20px" }}>
+          <div style={{ fontSize: "13px", fontWeight: "600", opacity: 0.9, marginBottom: "4px" }}>괜찮아요 아직 늦지 않았어요! 🤗</div>
+          <div style={{ fontSize: "12px", opacity: 0.85, marginBottom: "10px" }}>지금부터 같이 내집마련 차근차근 시작해봐요</div>
+          <div style={{ fontSize: "17px", fontWeight: "900" }}>내집마련 시작하러가기 →</div>
         </a>
         <button onClick={handleRestart} style={styles.btnGray}>🔄 다시 테스트하기</button>
         <p style={{ textAlign: "center", fontSize: "12px", color: "#bbb", marginTop: "12px" }}>📸 결과 캡처해서 인스타 스토리에 공유하세요!</p>
