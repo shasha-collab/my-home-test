@@ -1,35 +1,38 @@
 import { useState } from "react";
 
 const questions = [
-  { id: 1, text: "나의 종잣돈과 대출을 합친 내집마련 예산을 정확히 아나요?", hideLabel: false, tip: "👉 대출 포함한 내 정확한 예산을 알아야 단지 후보를 좁혀나갈 수 있어요" },
-  { id: 2, text: "대출에서 LTV, DSR, DTI의 차이를 정확히 알고 있나요?", hideLabel: false, tip: "👉 대출은 예산에서 가장 중요한 부분이에요. 대출 한도는 집값 대비한 LTV와 내 소득을 기준으로 하는 DSR/DTI 중 더 낮은 것으로 나와요." },
-  { id: 3, text: "내 상황에서 대출 원리금이 얼마여야 영끌이 아닌지 알고 있나요?", hideLabel: false, tip: "👉 영끌의 기준은 '너무 많다'는 막연한 느낌이 아니라 내 월 저축액으로 결정됩니다. 내집마련은 대출을 잘 활용하는게 정말 중요해요." },
-  { id: 4, text: "내집마련 후보로 단순히 주변 단지가 아닌 다른 후보 단지가 있나요?", hideLabel: true, tip: "👉 보통 지금 사는 곳 기준으로 내집마련을 정하는 경우가 많지만, 그게 가장 좋은 선택지는 아닐 확률이 높아요." },
-  { id: 5, text: "지금 보고 있는 아파트가 가장 좋다는 매수 확신이 있나요?", hideLabel: true, tip: "👉 같은 가격으로 가장 입지가 좋은 곳을 골라야 같은 기간에 더 높은 수익을 기대할 수 있어요." },
-  { id: 6, text: "부동산 사장님과 만나서 편안하게 대화가 가능한가요?", hideLabel: true, tip: "👉 사장님과 대화하고 협상하는 스킬은 내집마련 할 때 큰 힘이 되고, 몇 천만원을 깎거나 아낄 수도 있어요." },
-  { id: 7, text: "부동산 계약하기 위해 꼭 체크해야하는 내용을 알고 있나요?", hideLabel: false, tip: "👉 계약서는 한번 쓰면 돌이킬 수 없어요. 꼭 넣어야 하는 내용과 꼼꼼히 살펴볼 부분은 반드시 미리 알아둬야 해요." },
+  { id: 1, text: "나의 종잣돈과 대출을 합친 내집마련 예산을 정확히 아나요?", hideLabel: false, tip: "👉 예산을 알아야 후보 단지를 좁힐 수 있어요" },
+  { id: 2, text: "대출에서 LTV, DSR, DTI의 차이를 정확히 알고 있나요?", hideLabel: false, tip: "👉 대출 한도는 LTV와 DSR/DTI 중 더 낮은 것으로 결정돼요" },
+  { id: 3, text: "내 상황에서 대출 원리금이 얼마여야 영끌이 아닌지 알고 있나요?", hideLabel: false, tip: "👉 영끌 기준은 막연한 느낌이 아니라 내 월 저축액으로 결정돼요" },
+  { id: 4, text: "내집마련 후보로 단순히 주변 단지가 아닌 다른 후보 단지가 있나요?", hideLabel: false, oLabel: "다른 후보가 있어요", xLabel: "잘 모르겠어요", tip: "👉 사는 곳 근처가 최선이 아닐 확률이 높아요" },
+  { id: 5, text: "지금 보고 있는 아파트가 가장 좋다는 매수 확신이 있나요?", hideLabel: false, oLabel: "확신이 있어요", xLabel: "잘 모르겠어요", tip: "👉 같은 가격, 더 좋은 입지를 골라야 수익이 달라져요" },
+  { id: 6, text: "부동산 사장님과 만나서 편안하게 대화가 가능한가요?", hideLabel: false, oLabel: "대화가 가능해요", xLabel: "자신 없어요", tip: "👉 협상 스킬 하나로 몇 천만원을 아낄 수 있어요" },
+  { id: 7, text: "부동산 계약하기 위해 꼭 체크해야하는 내용을 알고 있나요?", hideLabel: false, tip: "👉 계약서는 한번 쓰면 돌이킬 수 없어요. 미리 알아두세요" },
 ];
 
 const levels = [
   {
     min: 0, max: 1,
     level: "Lv 1",
-    title: "내집마련 무지렁이",
+    name: "아직은 꿈꾸는 지렁이",
+    title: "지금 사면 큰일나는 지렁이 단계!",
     emoji: "🪱",
-    desc: "지금 사면 큰일나는 지렁이 단계! 부동산은 아는 만큼 보여요. 일단 기초부터 차근차근 시작해봐요 😊",
+    desc: "부동산은 아는 만큼 보여요. 일단 기초부터 차근차근 시작해봐요 😊",
     accent: "#FF6B9D",
   },
   {
     min: 2, max: 3,
     level: "Lv 2",
+    name: "대충 알아서 더 위험한 구렁이",
     title: "평생 내집마련, 담 넘어가듯 스윽하려고?",
     emoji: "🐍",
-    desc: "대충 알아서 더 위험한 구렁이! 어설프게 아는 게 제일 무서워요. 제대로 알고 제대로 삽시다 💪",
+    desc: "어설프게 아는 게 제일 무서워요. 제대로 알고 제대로 삽시다 💪",
     accent: "#FFB347",
   },
   {
     min: 4, max: 5,
     level: "Lv 3",
+    name: "고민은 많은데 못 사는 뱀",
     title: "조금만 더 알아보면 내집마련 가능!",
     emoji: "🐉",
     desc: "실행력을 더하면 좋을 똘똘한 뱀! 지식은 충분히 쌓였어요. 이제 행동으로 옮길 때예요 🔥",
@@ -38,6 +41,7 @@ const levels = [
   {
     min: 6, max: 7,
     level: "Lv 4",
+    name: "내집마련 승천 직전, 용",
     title: "지금 바로 내집마련 해도 되겠는데?",
     emoji: "🐲",
     desc: "승천 직전 용! 준비는 다 됐어요. 이제 딱 맞는 집만 찾으면 끝. 같이 찾아봐요 🏠",
@@ -89,10 +93,10 @@ export default function App() {
   };
 
   const getOptions = (qIndex) => {
-    const hideLabel = questions[qIndex].hideLabel;
+    const q = questions[qIndex];
     return [
-      { label: hideLabel ? "" : "O — 알고 있어요!", value: 1, emoji: "⭕" },
-      { label: hideLabel ? "" : "X — 모르겠어요", value: 0, emoji: "❌" },
+      { label: q.oLabel || "O — 알고 있어요!", value: 1, emoji: "⭕" },
+      { label: q.xLabel || "X — 모르겠어요", value: 0, emoji: "❌" },
     ];
   };
 
@@ -149,7 +153,7 @@ export default function App() {
               <button key={opt.value} onClick={() => setSelected(opt.value)}
                 style={{ ...styles.optionBase, ...(selected === opt.value ? styles.optionSelected : {}) }}>
                 <span style={{ fontSize: "28px" }}>{opt.emoji}</span>
-                {opt.label ? <span style={{ fontSize: "16px", fontWeight: "700", color: "#333" }}>{opt.label}</span> : null}
+                <span style={{ fontSize: "16px", fontWeight: "700", color: "#333" }}>{opt.label}</span>
                 {selected === opt.value && <span style={{ marginLeft: "auto", fontSize: "18px" }}>✅</span>}
               </button>
             ))}
@@ -170,8 +174,9 @@ export default function App() {
         <div style={{ background: `linear-gradient(135deg, ${resultLevel.accent}22, ${resultLevel.accent}11)`, borderRadius: "24px", padding: "28px", marginBottom: "16px", border: `2px solid ${resultLevel.accent}44`, boxShadow: "0 8px 32px rgba(0,0,0,0.1)" }}>
           <div style={{ textAlign: "center", marginBottom: "20px" }}>
             <div style={{ fontSize: "72px", marginBottom: "12px" }}>{resultLevel.emoji}</div>
-            <span style={{ display: "inline-block", padding: "4px 14px", borderRadius: "20px", fontSize: "12px", fontWeight: "800", background: resultLevel.accent, color: "white", marginBottom: "10px" }}>{resultLevel.level}</span>
-            <h2 style={{ fontSize: "20px", fontWeight: "900", color: "#1a1a2e", margin: "0 0 8px", lineHeight: "1.4" }}>{resultLevel.title}</h2>
+            <span style={{ display: "inline-block", padding: "4px 14px", borderRadius: "20px", fontSize: "12px", fontWeight: "800", background: resultLevel.accent, color: "white", marginBottom: "12px" }}>{resultLevel.level}</span>
+            <h2 style={{ fontSize: "24px", fontWeight: "900", color: "#1a1a2e", margin: "0 0 6px", lineHeight: "1.3" }}>{resultLevel.name}</h2>
+            <p style={{ fontSize: "14px", color: "#888", margin: 0, fontWeight: "600" }}>{resultLevel.title}</p>
           </div>
 
           {/* 준비도 퍼센트 */}
@@ -205,9 +210,9 @@ export default function App() {
                 <div key={i}>
                   <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "6px" }}>
                     <span style={{ fontSize: "18px", flexShrink: 0 }}>{score === 1 ? "⭕" : "❌"}</span>
-                    <span style={{ fontSize: "13px", color: score === 1 ? "#333" : "#bbb", fontWeight: score === 1 ? "600" : "400", flex: 1, lineHeight: "1.5" }}>{q.text}</span>
+                    <span style={{ fontSize: "13px", color: "#222", fontWeight: "700", flex: 1, lineHeight: "1.5" }}>{q.text}</span>
                   </div>
-                  <div style={{ marginLeft: "28px", fontSize: "12px", color: "#888", lineHeight: "1.6", background: "#F8F9FF", borderRadius: "10px", padding: "8px 12px" }}>
+                  <div style={{ marginLeft: "28px", fontSize: "12px", color: "#555", lineHeight: "1.6", background: "#F8F9FF", borderRadius: "10px", padding: "8px 12px" }}>
                     {q.tip}
                   </div>
                 </div>
