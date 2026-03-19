@@ -1,18 +1,13 @@
 import { useState } from "react";
 
 const questions = [
-  { id: 1, text: "나의 종잣돈과 대출을 합친 내집마련 예산을 정확히 아나요?" },
-  { id: 2, text: "대출에서 LTV, DSR, DTI의 차이를 정확히 알고 있나요?" },
-  { id: 3, text: "내 상황에서 대출 원리금이 얼마여야 영끌이 아닌지 알고 있나요?" },
-  { id: 4, text: "내집마련 후보로 단순히 주변 단지가 아닌 다른 후보 단지가 있나요?" },
-  { id: 5, text: "지금 보고 있는 아파트가 가장 좋다는 매수 확신이 있나요?" },
-  { id: 6, text: "부동산 사장님과 만나서 편안하게 대화가 가능한가요?" },
-  { id: 7, text: "부동산 계약하기 위해 꼭 체크해야하는 내용을 알고 있나요?" },
-];
-
-const options = [
-  { label: "O — 알고 있어요!", value: 1, emoji: "⭕" },
-  { label: "X — 모르겠어요", value: 0, emoji: "❌" },
+  { id: 1, text: "나의 종잣돈과 대출을 합친 내집마련 예산을 정확히 아나요?", hideLabel: false, tip: "👉 대출 포함한 내 정확한 예산을 알아야 단지 후보를 좁혀나갈 수 있어요" },
+  { id: 2, text: "대출에서 LTV, DSR, DTI의 차이를 정확히 알고 있나요?", hideLabel: false, tip: "👉 대출은 예산에서 가장 중요한 부분이에요. 대출 한도는 집값 대비한 LTV와 내 소득을 기준으로 하는 DSR/DTI 중 더 낮은 것으로 나와요." },
+  { id: 3, text: "내 상황에서 대출 원리금이 얼마여야 영끌이 아닌지 알고 있나요?", hideLabel: false, tip: "👉 영끌의 기준은 '너무 많다'는 막연한 느낌이 아니라 내 월 저축액으로 결정됩니다. 내집마련은 대출을 잘 활용하는게 정말 중요해요." },
+  { id: 4, text: "내집마련 후보로 단순히 주변 단지가 아닌 다른 후보 단지가 있나요?", hideLabel: true, tip: "👉 보통 지금 사는 곳 기준으로 내집마련을 정하는 경우가 많지만, 그게 가장 좋은 선택지는 아닐 확률이 높아요." },
+  { id: 5, text: "지금 보고 있는 아파트가 가장 좋다는 매수 확신이 있나요?", hideLabel: true, tip: "👉 같은 가격으로 가장 입지가 좋은 곳을 골라야 같은 기간에 더 높은 수익을 기대할 수 있어요." },
+  { id: 6, text: "부동산 사장님과 만나서 편안하게 대화가 가능한가요?", hideLabel: true, tip: "👉 사장님과 대화하고 협상하는 스킬은 내집마련 할 때 큰 힘이 되고, 몇 천만원을 깎거나 아낄 수도 있어요." },
+  { id: 7, text: "부동산 계약하기 위해 꼭 체크해야하는 내용을 알고 있나요?", hideLabel: false, tip: "👉 계약서는 한번 쓰면 돌이킬 수 없어요. 꼭 넣어야 하는 내용과 꼼꼼히 살펴볼 부분은 반드시 미리 알아둬야 해요." },
 ];
 
 const levels = [
@@ -23,7 +18,6 @@ const levels = [
     emoji: "🪱",
     desc: "지금 사면 큰일나는 지렁이 단계! 부동산은 아는 만큼 보여요. 일단 기초부터 차근차근 시작해봐요 😊",
     accent: "#FF6B9D",
-    readyMsg: "아직 준비가 많이 필요해요",
   },
   {
     min: 2, max: 3,
@@ -32,7 +26,6 @@ const levels = [
     emoji: "🐍",
     desc: "대충 알아서 더 위험한 구렁이! 어설프게 아는 게 제일 무서워요. 제대로 알고 제대로 삽시다 💪",
     accent: "#FFB347",
-    readyMsg: "기초는 있지만 아직 위험해요",
   },
   {
     min: 4, max: 5,
@@ -41,7 +34,6 @@ const levels = [
     emoji: "🐉",
     desc: "실행력을 더하면 좋을 똘똘한 뱀! 지식은 충분히 쌓였어요. 이제 행동으로 옮길 때예요 🔥",
     accent: "#4ECDC4",
-    readyMsg: "거의 다 왔어요! 조금만 더!",
   },
   {
     min: 6, max: 7,
@@ -50,7 +42,6 @@ const levels = [
     emoji: "🐲",
     desc: "승천 직전 용! 준비는 다 됐어요. 이제 딱 맞는 집만 찾으면 끝. 같이 찾아봐요 🏠",
     accent: "#5B6AF0",
-    readyMsg: "내집마련 준비 완료!",
   },
 ];
 
@@ -60,7 +51,7 @@ const styles = {
   container: { maxWidth: "390px", width: "100%" },
   btn: { width: "100%", padding: "16px", borderRadius: "16px", border: "none", color: "white", fontWeight: "900", fontSize: "16px", cursor: "pointer", background: "linear-gradient(135deg, #5B6AF0, #8B5CF6)", marginBottom: "12px" },
   btnGray: { width: "100%", padding: "14px", borderRadius: "16px", border: "1.5px solid #E0E0E0", background: "white", color: "#666", fontWeight: "700", fontSize: "14px", cursor: "pointer" },
-  btnOrange: { width: "100%", padding: "16px", borderRadius: "16px", border: "none", color: "white", fontWeight: "900", fontSize: "16px", cursor: "pointer", background: "linear-gradient(135deg, #FF6B6B, #FF8E53)", marginBottom: "12px", textDecoration: "none", display: "block", textAlign: "center", lineHeight: "1.5" },
+  btnBlue: { width: "100%", padding: "22px 20px", borderRadius: "20px", border: "none", color: "white", fontWeight: "900", fontSize: "16px", cursor: "pointer", background: "linear-gradient(135deg, #5B6AF0, #8B5CF6)", marginBottom: "12px", textDecoration: "none", display: "block", textAlign: "center", lineHeight: "1.5" },
   tag: { display: "inline-block", padding: "4px 12px", borderRadius: "20px", fontSize: "12px", fontWeight: "700", background: "#FFE0B2", color: "#E65100", marginBottom: "12px" },
   progressBg: { height: "8px", borderRadius: "8px", background: "#F0F0F0", overflow: "hidden", marginBottom: "24px" },
   optionBase: { width: "100%", padding: "18px 20px", borderRadius: "16px", border: "1.5px solid #F0F0F0", background: "white", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", marginBottom: "12px", textAlign: "left" },
@@ -79,7 +70,6 @@ export default function App() {
 
   const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
   const successRate = Math.round((totalScore / 7) * 100);
-  const notReadyRate = 100 - successRate;
   const resultLevel = getLevel(totalScore);
 
   const handleNext = () => {
@@ -98,6 +88,14 @@ export default function App() {
     setScreen("intro"); setCurrent(0); setAnswers({}); setSelected(null);
   };
 
+  const getOptions = (qIndex) => {
+    const hideLabel = questions[qIndex].hideLabel;
+    return [
+      { label: hideLabel ? "" : "O — 알고 있어요!", value: 1, emoji: "⭕" },
+      { label: hideLabel ? "" : "X — 모르겠어요", value: 0, emoji: "❌" },
+    ];
+  };
+
   if (screen === "intro") return (
     <div style={styles.app}>
       <div style={styles.container}>
@@ -105,7 +103,7 @@ export default function App() {
           <div style={{ fontSize: "64px", marginBottom: "16px" }}>🏡</div>
           <span style={styles.tag}>3040 필수 자가진단</span>
           <h1 style={{ fontSize: "28px", fontWeight: "900", color: "#1a1a2e", lineHeight: "1.3", margin: "0 0 12px" }}>
-            지금 집 사도 될까?<br /><span style={{ color: "#5B6AF0" }}>내집마련 준비력 테스트</span>
+            내집마련 준비력 테스트
           </h1>
           <p style={{ fontSize: "14px", color: "#888", lineHeight: "1.7", margin: "0 0 28px" }}>
             7개 질문으로 알아보는 나의 부동산 레벨 🏠<br />결과가 생각보다 충격적일 수도 있어요 👀
@@ -129,6 +127,7 @@ export default function App() {
 
   if (screen === "quiz") {
     const progress = (current / questions.length) * 100;
+    const currentOptions = getOptions(current);
     return (
       <div style={styles.app}>
         <div style={styles.container}>
@@ -146,11 +145,11 @@ export default function App() {
             <p style={{ fontSize: "16px", fontWeight: "700", color: "#1a1a2e", lineHeight: "1.6", margin: 0 }}>{questions[current].text}</p>
           </div>
           <div style={{ marginBottom: "20px" }}>
-            {options.map((opt) => (
+            {currentOptions.map((opt) => (
               <button key={opt.value} onClick={() => setSelected(opt.value)}
                 style={{ ...styles.optionBase, ...(selected === opt.value ? styles.optionSelected : {}) }}>
                 <span style={{ fontSize: "28px" }}>{opt.emoji}</span>
-                <span style={{ fontSize: "16px", fontWeight: "700", color: "#333" }}>{opt.label}</span>
+                {opt.label ? <span style={{ fontSize: "16px", fontWeight: "700", color: "#333" }}>{opt.label}</span> : null}
                 {selected === opt.value && <span style={{ marginLeft: "auto", fontSize: "18px" }}>✅</span>}
               </button>
             ))}
@@ -175,14 +174,12 @@ export default function App() {
             <h2 style={{ fontSize: "20px", fontWeight: "900", color: "#1a1a2e", margin: "0 0 8px", lineHeight: "1.4" }}>{resultLevel.title}</h2>
           </div>
 
-          {/* 준비도 퍼센트 — 핵심 강조 */}
+          {/* 준비도 퍼센트 */}
           <div style={{ background: "white", borderRadius: "20px", padding: "24px 20px", marginBottom: "16px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)", textAlign: "center" }}>
             <div style={{ fontSize: "11px", fontWeight: "700", color: "#aaa", marginBottom: "8px", letterSpacing: "1px" }}>내집마련 준비도</div>
             <div style={{ fontSize: "72px", fontWeight: "900", lineHeight: 1, color: "#E53E3E", marginBottom: "16px" }}>
               {successRate}<span style={{ fontSize: "28px" }}>%</span>
             </div>
-
-            {/* 준비된 퍼센트만 빨갛게 */}
             <div style={{ height: "20px", borderRadius: "12px", background: "#F0F0F0", overflow: "hidden", marginBottom: "10px" }}>
               <div style={{ height: "100%", borderRadius: "12px", background: "linear-gradient(90deg, #E53E3E, #FF6B6B)", width: `${successRate}%`, transition: "width 1.2s ease" }} />
             </div>
@@ -198,24 +195,28 @@ export default function App() {
           </div>
         </div>
 
-        {/* 문항별 O/X */}
+        {/* 문항별 O/X + 팁 */}
         <div style={styles.card}>
           <div style={{ fontSize: "11px", fontWeight: "800", color: "#aaa", letterSpacing: "1px", marginBottom: "14px" }}>문항별 결과</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             {questions.map((q, i) => {
               const score = answers[i] ?? 0;
               return (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <span style={{ fontSize: "18px" }}>{score === 1 ? "⭕" : "❌"}</span>
-                  <span style={{ fontSize: "13px", color: score === 1 ? "#444" : "#bbb", fontWeight: score === 1 ? "600" : "400", flex: 1 }}>{q.text}</span>
+                <div key={i}>
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "6px" }}>
+                    <span style={{ fontSize: "18px", flexShrink: 0 }}>{score === 1 ? "⭕" : "❌"}</span>
+                    <span style={{ fontSize: "13px", color: score === 1 ? "#333" : "#bbb", fontWeight: score === 1 ? "600" : "400", flex: 1, lineHeight: "1.5" }}>{q.text}</span>
+                  </div>
+                  <div style={{ marginLeft: "28px", fontSize: "12px", color: "#888", lineHeight: "1.6", background: "#F8F9FF", borderRadius: "10px", padding: "8px 12px" }}>
+                    {q.tip}
+                  </div>
                 </div>
               );
             })}
           </div>
         </div>
 
-        <a href="https://weolbu.com/product/4966" target="_blank" rel="noopener noreferrer"
-          style={{ ...styles.btnOrange, background: "linear-gradient(135deg, #5B6AF0, #8B5CF6)", padding: "22px 20px", borderRadius: "20px" }}>
+        <a href="https://weolbu.com/product/4966" target="_blank" rel="noopener noreferrer" style={styles.btnBlue}>
           <div style={{ fontSize: "13px", fontWeight: "600", opacity: 0.9, marginBottom: "4px" }}>괜찮아요 아직 늦지 않았어요! 🤗</div>
           <div style={{ fontSize: "12px", opacity: 0.85, marginBottom: "10px" }}>지금부터 같이 내집마련 차근차근 시작해봐요</div>
           <div style={{ fontSize: "17px", fontWeight: "900" }}>내집마련 시작하러가기 →</div>
