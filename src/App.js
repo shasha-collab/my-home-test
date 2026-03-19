@@ -35,7 +35,7 @@ const levels = [
     name: "고민은 많은데 못 사는 뱀",
     title: "조금만 더 알아보면 내집마련 가능!",
     emoji: "🐉",
-    desc: "실행력을 더하면 좋을 똘똘한 뱀! 지식은 충분히 쌓였어요. 이제 행동으로 옮길 때예요 🔥",
+    desc: "지식은 있는데 아직 이렇다 할 확신이 없어요. 고민을 멈추게 해줄 기준과 확신 한스푼이 필요한 때에요 🔥",
     accent: "#4ECDC4",
   },
   {
@@ -43,7 +43,7 @@ const levels = [
     level: "Lv 4",
     name: "내집마련 승천 직전, 용",
     title: "지금 바로 내집마련 해도 되겠는데?",
-    emoji: "🐲",
+    emoji: "🐉",
     desc: "승천 직전 용! 준비는 다 됐어요. 이제 딱 맞는 집만 찾으면 끝. 같이 찾아봐요 🏠",
     accent: "#5B6AF0",
   },
@@ -173,7 +173,9 @@ export default function App() {
         {/* 레벨 카드 */}
         <div style={{ background: `linear-gradient(135deg, ${resultLevel.accent}22, ${resultLevel.accent}11)`, borderRadius: "24px", padding: "28px", marginBottom: "16px", border: `2px solid ${resultLevel.accent}44`, boxShadow: "0 8px 32px rgba(0,0,0,0.1)" }}>
           <div style={{ textAlign: "center", marginBottom: "20px" }}>
-            <div style={{ fontSize: "72px", marginBottom: "12px" }}>{resultLevel.emoji}</div>
+            <div style={{ width: "120px", height: "120px", borderRadius: "50%", background: `${resultLevel.accent}33`, border: `4px solid ${resultLevel.accent}66`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", fontSize: "64px" }}>
+              {resultLevel.level === "Lv 1" ? "🪱" : resultLevel.level === "Lv 4" ? "🐉" : "🐍"}
+            </div>
             <span style={{ display: "inline-block", padding: "4px 14px", borderRadius: "20px", fontSize: "12px", fontWeight: "800", background: resultLevel.accent, color: "white", marginBottom: "12px" }}>{resultLevel.level}</span>
             <h2 style={{ fontSize: "24px", fontWeight: "900", color: "#1a1a2e", margin: "0 0 6px", lineHeight: "1.3" }}>{resultLevel.name}</h2>
             <p style={{ fontSize: "14px", color: "#888", margin: 0, fontWeight: "600" }}>{resultLevel.title}</p>
